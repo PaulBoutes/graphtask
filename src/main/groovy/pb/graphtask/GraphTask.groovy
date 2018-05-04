@@ -18,20 +18,20 @@ class GraphTask {
     }
 
     GraphTask() {
-        root = makeOrGet(new Task(name: ROOT))
+        root = getOrCreate(new Task(name: ROOT))
         add(root.task)
     }
 
     // Add a task to the graph
     GraphTask add(Task task) {
-        GraphNode node = makeOrGet(task)
+        GraphNode node = getOrCreate(task)
         if (node.task.parent != null) {
-            GraphNode parent = makeOrGet(node.task.parent)
+            GraphNode parent = getOrCreate(node.task.parent)
             parent.children.add(node)
         } else {
             root.children.add(node)
         }
-        node.children.add(makeOrGet(node.task))
+        node.children.add(getOrCreate(node.task))
         return this
     }
 
@@ -41,7 +41,7 @@ class GraphTask {
         return data.task.tail()
     }
 
-    private GraphNode makeOrGet(Task task) {
+    private GraphNode getOrCreate(Task task) {
         if (nodeMap.containsKey(task.name)) {
             return nodeMap.get(task.name)
         }
