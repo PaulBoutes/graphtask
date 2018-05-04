@@ -15,6 +15,14 @@ class GraphTask {
             this.result = result
         }
 
+        UnvisitedAndResult addIfNotSeen(GraphNode node) {
+            if (!result.contains(node)) {
+                result.add(node)
+                unvisited.add(node)
+            }
+            return this
+        }
+
     }
 
     GraphTask() {
@@ -56,13 +64,7 @@ class GraphTask {
             return result
         } else {
             Collection<GraphNode> listOfNode = unvisited.children.flatten()
-            UnvisitedAndResult data = listOfNode.inject(new UnvisitedAndResult(result)) { t, n ->
-                if (!t.result.contains(n)) {
-                    t.result.add(n)
-                    t.unvisited.add(n)
-                }
-                return t
-            }
+            UnvisitedAndResult data = listOfNode.inject(new UnvisitedAndResult(result)) { t, n -> t.addIfNotSeen(n) }
             return traversal(data.unvisited, data.result)
         }
     }
