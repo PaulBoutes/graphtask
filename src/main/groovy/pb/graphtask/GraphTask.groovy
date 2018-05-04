@@ -62,8 +62,9 @@ class GraphTask {
         if (unvisited.size() == 0) {
             return result
         } else {
-            Collection<GraphNode> listOfNode = unvisited.children.flatten()
-            UnvisitedAndResult data = listOfNode.inject(new UnvisitedAndResult(result)) { t, n -> t.addIfNotSeen(n) }
+            List<GraphNode> listOfNode = unvisited.children.flatten() as List<GraphNode>
+            UnvisitedAndResult data = listOfNode
+                    .inject(new UnvisitedAndResult(result)) { t, n -> t.addIfNotSeen(n) } as UnvisitedAndResult
             return traversal(data.unvisited, data.result)
         }
     }
