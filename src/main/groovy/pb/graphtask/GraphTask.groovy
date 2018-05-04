@@ -7,11 +7,10 @@ class GraphTask {
     private Map<String, GraphNode> nodeMap = [:]
 
     private class UnvisitedAndResult {
-        Set<GraphNode> unvisited
+        Set<GraphNode> unvisited = []
         Set<GraphNode> result
 
         UnvisitedAndResult(Set<GraphNode> result) {
-            this.unvisited = []
             this.result = result
         }
 
